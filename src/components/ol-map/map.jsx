@@ -34,7 +34,6 @@ const OLMap = ({ mapRef }) => {
       })
     }
 
-    // Call the async function
     initializeMap()
   }, [mapRef])
 
