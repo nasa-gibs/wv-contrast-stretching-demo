@@ -143,3 +143,13 @@ export const referenceLabels = {
     noTransition: true,
     wrapX: true,
 }
+
+export const hls_landsat_firms = {
+  id: "hls_landsat_firms",
+  name: 'hls_landsat_firms',
+  title: 'Corrected Reflectance (True Color)',
+  r: 'B07',
+  g: 'B05',
+  b: 'B04',
+  collectionID: 'HLSL30',
+}

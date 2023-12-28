@@ -2,33 +2,41 @@ import { useEffect } from 'react'
 import 'ol/ol.css'
 import Map from 'ol/Map'
 import View from 'ol/View'
-import CreateWMTSLayer from './wmts-layer'
+import createWMTSLayer from './wmts-layer'
+import registerSearch from './register-search'
 import {
   correctedReflectance,
   referenceFeatures,
   referenceLabels,
+  hls_landsat_firms,
 } from '../../config/layerConfig'
 
 const OLMap = ({ mapRef }) => {
   useEffect(() => {
-    const correctedReflectanceLayer = CreateWMTSLayer(correctedReflectance)
-    const referenceFeaturesLayer = CreateWMTSLayer(referenceFeatures)
-    const referenceLabelsLayer = CreateWMTSLayer(referenceLabels)
+    const initializeMap = async () => {
+      const correctedReflectanceLayer = createWMTSLayer(correctedReflectance)
+      const referenceFeaturesLayer = createWMTSLayer(referenceFeatures)
+      const referenceLabelsLayer = createWMTSLayer(referenceLabels)
+      const hls_landsat_firmsLayer = await registerSearch(hls_landsat_firms)
 
-    new Map({
-      target: mapRef.current,
-      layers: [
-        correctedReflectanceLayer,
-        referenceFeaturesLayer,
-        referenceLabelsLayer,
-      ],
-      view: new View({
-        center: [-77.0369, 38.9072],
-        zoom: 8.2,
-        projection: 'EPSG:4326',
-      }),
-    })
-  }, [])
+      new Map({
+        target: mapRef.current,
+        layers: [
+          correctedReflectanceLayer,
+          referenceFeaturesLayer,
+          referenceLabelsLayer,
+        ],
+        view: new View({
+          center: [-77.0369, 38.9072],
+          zoom: 8.2,
+          projection: 'EPSG:4326',
+        }),
+      })
+    }
+
+    // Call the async function
+    initializeMap()
+  }, [mapRef])
 
   return <div ref={mapRef} style={{ height: '100vh', width: '67%' }}></div>
 }
