@@ -3,7 +3,7 @@ import 'ol/ol.css'
 import Map from 'ol/Map'
 import View from 'ol/View'
 import createWMTSLayer from './wmts-layer'
-import registerSearch from './register-search'
+import { createHLSLayer } from './hls-layer'
 import {
   correctedReflectance,
   referenceFeatures,
@@ -17,7 +17,7 @@ const OLMap = ({ mapRef }) => {
       const correctedReflectanceLayer = createWMTSLayer(correctedReflectance)
       const referenceFeaturesLayer = createWMTSLayer(referenceFeatures)
       const referenceLabelsLayer = createWMTSLayer(referenceLabels)
-      const hls_landsat_firmsLayer = await registerSearch(hls_landsat_firms)
+      const hls_landsat_firmsLayer = await createHLSLayer(hls_landsat_firms)
 
       new Map({
         target: mapRef.current,
@@ -25,6 +25,7 @@ const OLMap = ({ mapRef }) => {
           correctedReflectanceLayer,
           referenceFeaturesLayer,
           referenceLabelsLayer,
+          hls_landsat_firmsLayer,
         ],
         view: new View({
           center: [-77.0369, 38.9072],
