@@ -36,10 +36,14 @@ const OLMap = () => {
           hls_landsat_firmsLayer,
         ],
         view: new View({
-          center: [52.0, 17.05],
-          zoom: 12,
+          center: [-77.0369, 38.9072],
+          zoom: 12.5,
           projection: 'EPSG:4326',
         }),
+      })
+
+      olMap.on('moveend', () => {
+        setMap(olMap)
       })
 
       setMap(olMap)

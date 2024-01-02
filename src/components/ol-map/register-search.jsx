@@ -5,7 +5,7 @@ export default async (layer) => {
   const BASE_URL = 'https://d1nzvsko7rbono.cloudfront.net'
   const { r, g, b, collectionID } = layer
   const bandCombo = [r, g, b].join(',')
-  const temporalRange = ['2023-08-29T00:00:00Z', ' 2023-08-29T23:59:59Z']
+  const temporalRange = ['2023-11-11T00:00:00Z', ' 2023-11-11T23:59:59Z']
 
   const collectionsFilter = {
     op: '=',

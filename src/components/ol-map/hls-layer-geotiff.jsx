@@ -1,5 +1,5 @@
 import GeoTIFFSource from 'ol/source/GeoTIFF'
-import TileLayer from 'ol/layer/Tile'
+import TileLayer from 'ol/layer/WebGLTile.js'
 import OlSourceXYZ from 'ol/source/XYZ'
 import { get } from 'ol/proj'
 import registerSearch from './register-search'
@@ -13,38 +13,21 @@ export const createHLSLayerGeoTIFF = async (layer) => {
   params.push('format=tif')
   const sourceUrl = 'https://kv9drwgv6l.execute-api.us-west-2.amazonaws.com/'
 
-  const tileUrlFunction = (tileCoord) => {
-    const z = tileCoord[0] - 1
-    const x = tileCoord[1]
-    const y = tileCoord[2]
+  const preformedURL =
+    'https://kv9drwgv6l.execute-api.us-west-2.amazonaws.com/mosaic/tiles/e8fc0cdcadc40f9de03fa907de071a9e/WGS1984Quad/12/2342/1161@1x.tif?pixel_selection=first&assets=B07&assets=B05&assets=B04&unscale=false&resampling=nearest&post_process=swir'
 
-    const urlParams = `mosaic/tiles/${searchID}/WGS1984Quad/${z}/${x}/${y}@1x?post_process=swir&${params
-      .filter((p) => !p.split('=').includes('undefined'))
-      .join('&')}`
-
-    return sourceUrl + urlParams
-  }
-
-  const source = sourceConfig['GIBS:geographic']
-  const maxExtent = [-180, -90, 180, 90]
-  const crs = 'EPSG:4326'
-
-  const xyzSourceOptions = {
-    crossOrigin: 'anonymous',
-    projection: get(crs),
-    tileUrlFunction,
-  }
-
-  const xyzSource = new OlSourceXYZ(xyzSourceOptions)
-
-  const hlsLayer = new TileLayer({
-    source: xyzSource,
-    minZoom: 7,
-    extent: maxExtent,
+  const urls = [preformedURL]
+  const geoTiffSource = new GeoTIFFSource({
+    sources: [
+      {
+        url: preformedURL,
+      },
+    ],
   })
 
-  return hlsLayer
-}
+  const geoTiffLayer = new TileLayer({
+    source: geoTiffSource,
+  })
 
-// example URL:
-// https://kv9drwgv6l.execute-api.us-west-2.amazonaws.com/mosaic/tiles/00c726d5fc0da431d8b638fd5a5ee860/WGS1984Quad/10/586/289@1x.tif?post_process=swir&assets=B07&assets=B05&assets=B04
+  return geoTiffLayer
+}
