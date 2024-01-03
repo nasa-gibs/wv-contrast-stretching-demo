@@ -11,10 +11,10 @@ import {
   referenceFeatures,
   referenceLabels,
   hls_landsat_firms,
+  hls_landsat_firms_no_swir,
 } from '../../config/layerConfig'
 
 const OLMap = () => {
-  console.log('rendering OLMap')
   const { map, setMap } = useContext(MapContext)
   const mapRef = useRef()
 
@@ -46,7 +46,12 @@ const OLMap = () => {
     const addAsyncLayer = async (olMap) => {
       const hls_landsat_firmsLayer =
         await createHLSLayerGeoTIFF(hls_landsat_firms)
+      const hls_landsat_firms_no_swirLayer = await createHLSLayerGeoTIFF(
+        hls_landsat_firms_no_swir
+      )
+
       olMap.addLayer(hls_landsat_firmsLayer)
+      olMap.addLayer(hls_landsat_firms_no_swirLayer)
     }
     addAsyncLayer(olMap)
 

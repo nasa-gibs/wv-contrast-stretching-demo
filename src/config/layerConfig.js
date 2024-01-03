@@ -147,7 +147,17 @@ export const referenceLabels = {
 export const hls_landsat_firms = {
   id: "hls_landsat_firms_swir",
   name: 'hls_landsat_firms',
-  title: 'Corrected Reflectance (True Color)',
+  title: 'HLS Landsat FIRMS SWIR',
+  r: 'B07',
+  g: 'B05',
+  b: 'B04',
+  collectionID: 'HLSL30',
+}
+
+export const hls_landsat_firms_no_swir = {
+  id: "hls_landsat_firms_no_swir",
+  name: 'hls_landsat_firms',
+  title: 'HLS Landsat FIRMS NO SWIR',
   r: 'B07',
   g: 'B05',
   b: 'B04',

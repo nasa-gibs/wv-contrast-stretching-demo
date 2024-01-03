@@ -68,14 +68,14 @@ const Sidebar = () => {
         </Button>
       </Flex>
 
-      <Flex justifyContent="space-evenly" mb="4">
+      <Flex justifyContent="space-between" mb="4">
         <Badge borderRadius="full" px="2" colorScheme="teal">
           Coordinates
         </Badge>
         <Text color="whiteAlpha.900"> {coordinates} </Text>
       </Flex>
 
-      <Flex justifyContent="space-evenly" mb="4">
+      <Flex justifyContent="space-between" mb="4" width="75%">
         <Badge borderRadius="full" px="2" colorScheme="teal">
           Zoom
         </Badge>

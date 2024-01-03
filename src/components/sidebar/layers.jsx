@@ -27,6 +27,8 @@ const Layers = () => {
     dispatch(setLayerVisibility(layer))
   }
 
+  const reversedLayers = [...layers].reverse()
+
   return (
     <Container mt="8">
       <Heading
@@ -39,7 +41,7 @@ const Layers = () => {
         Layers
       </Heading>
       <Flex flexDirection="column" justifyContent="center" alignItems="center">
-        {layers.map((layer) => (
+        {reversedLayers.map((layer) => (
           <Flex
             key={layer.id}
             alignItems="center"

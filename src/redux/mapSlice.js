@@ -15,15 +15,21 @@ const initialState = {
             id: "hls_landsat_firms_swir",
         },
         {
-            name: "Coastlines / Borders / Roads",
+            name: "HLS Landsat FIRMS NO SWIR",
             visible: true,
             order: 2,
+            id: "hls_landsat_firms_no_swir",
+        },
+        {
+            name: "Coastlines / Borders / Roads",
+            visible: true,
+            order: 3,
             id: "Reference_Features_15m",
         },
         {
             name: "Place Labels",
             visible: true,
-            order: 3,
+            order: 4,
             id: "Reference_Labels_15m",
         },
     ],
