@@ -25,25 +25,28 @@ export const createHLSLayerGeoTIFF = async (layer) => {
 
   const urls = [preformedUrl]
 
+  // Define a style function
+  const defaultStyleFunction = () => {
+    return {
+      color: [
+        'array',
+        ['/', ['band', 1], 255], // Normalize Red band
+        ['/', ['band', 2], 255], // Normalize Green band
+        ['/', ['band', 3], 255], // Normalize Blue band
+        1, // Alpha channel
+      ],
+    }
+  }
+
   const geoTiffSource = new GeoTIFFSource({
     sources: [{ url: preformedUrl }],
-    // normalize: false,
   })
 
   const geoTiffLayer = new TileLayer({
     source: geoTiffSource,
     className: id,
     id: id,
-    // style: {
-    //   variables: getVariables(),
-    //   color: [
-    //     'array',
-    //     ['/', ['band', ['var', 'red']], ['var', 'redMax']],
-    //     ['/', ['band', ['var', 'green']], ['var', 'greenMax']],
-    //     ['/', ['band', ['var', 'blue']], ['var', 'blueMax']],
-    //     1,
-    //   ],
-    // },
+    style: defaultStyleFunction, // Use the style function
   })
 
   return geoTiffLayer

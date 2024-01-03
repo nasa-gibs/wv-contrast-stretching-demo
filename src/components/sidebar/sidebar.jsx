@@ -10,10 +10,9 @@ const Sidebar = () => {
   const tester = () => {
     const olMapLayers = map.getLayers().array_
     const findOLLayer = olMapLayers.find(
-      (olLayer) =>
-        olLayer.get('id') === 'VIIRS_SNPP_CorrectedReflectance_TrueColor'
+      (olLayer) => olLayer.get('id') === 'hls_landsat_firms_swir'
     )
-    console.log(findOLLayer.getVisible())
+    console.log(findOLLayer)
   }
 
   const getXYZ = () => {

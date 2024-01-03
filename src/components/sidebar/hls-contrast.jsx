@@ -30,9 +30,44 @@ const HlsContrast = () => {
     )
   )
 
+  const updateLayerStyle = (layerId, red, green, blue) => {
+    const olLayer = map
+      .getLayers()
+      .getArray()
+      .find((l) => l.get('id') === layerId)
+    if (!olLayer) return
+
+    // Normalize the values to 0-1 range
+    const normalizeValue = (value) =>
+      (Math.max(0, Math.min(value, 100)) / 100) * 255
+
+    // Define a dynamic style function
+    const dynamicStyleFunction = () => {
+      return {
+        color: [
+          'array',
+          ['/', ['band', 1], normalizeValue(red)],
+          ['/', ['band', 2], normalizeValue(green)],
+          ['/', ['band', 3], normalizeValue(blue)],
+          1, // Alpha channel
+        ],
+      }
+    }
+
+    // Update the layer's style
+    olLayer.setStyle(dynamicStyleFunction)
+  }
+
   const updateRgb = (layer, color, value) => {
     const updatedLayer = { ...layer, [color]: value }
     dispatch(updateLayerRgb(updatedLayer))
+
+    updateLayerStyle(
+      layer.id,
+      updatedLayer.red,
+      updatedLayer.green,
+      updatedLayer.blue
+    )
   }
 
   return (
