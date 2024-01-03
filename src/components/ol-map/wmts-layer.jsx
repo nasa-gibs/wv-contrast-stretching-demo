@@ -69,6 +69,7 @@ const CreateWMTSLayer = (layer) => {
     preload: 0,
     source: tileSource,
     className: id,
+    id: id,
   })
 
   return layerTile

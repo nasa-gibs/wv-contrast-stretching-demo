@@ -14,56 +14,44 @@ import {
 } from '../../config/layerConfig'
 
 const OLMap = () => {
+  console.log('rendering OLMap')
   const { map, setMap } = useContext(MapContext)
   const mapRef = useRef()
 
   useEffect(() => {
-    if (map) return
+    const correctedReflectanceLayer = createWMTSLayer(correctedReflectance)
+    const referenceFeaturesLayer = createWMTSLayer(referenceFeatures)
+    const referenceLabelsLayer = createWMTSLayer(referenceLabels)
 
-    const initializeMap = async () => {
-      const correctedReflectanceLayer = createWMTSLayer(correctedReflectance)
-      const referenceFeaturesLayer = createWMTSLayer(referenceFeatures)
-      const referenceLabelsLayer = createWMTSLayer(referenceLabels)
+    const olMap = new Map({
+      target: mapRef.current,
+      layers: [
+        correctedReflectanceLayer,
+        referenceFeaturesLayer,
+        referenceLabelsLayer,
+      ],
+      view: new View({
+        center: [-77.0369, 38.9072],
+        zoom: 12.5,
+        projection: 'EPSG:4326',
+      }),
+    })
+
+    olMap.on('moveend', () => {
+      setMap(olMap)
+    })
+
+    setMap(olMap)
+
+    const addAsyncLayer = async (olMap) => {
       const hls_landsat_firmsLayer =
         await createHLSLayerGeoTIFF(hls_landsat_firms)
-
-      const olMap = new Map({
-        target: mapRef.current,
-        layers: [
-          correctedReflectanceLayer,
-          referenceFeaturesLayer,
-          referenceLabelsLayer,
-          hls_landsat_firmsLayer,
-        ],
-        view: new View({
-          center: [-77.0369, 38.9072],
-          zoom: 12.5,
-          projection: 'EPSG:4326',
-        }),
-      })
-
-      olMap.on('moveend', () => {
-        setMap(olMap)
-      })
-
-      setMap(olMap)
-      return olMap
+      olMap.addLayer(hls_landsat_firmsLayer)
     }
+    addAsyncLayer(olMap)
 
-    let olMap
-    // Initialize the map
-    if (!map) {
-      initializeMap().then((createdMap) => {
-        olMap = createdMap
-      })
-    }
-
-    return () => {
-      if (olMap) {
-        olMap.setTarget(undefined)
-      }
-    }
-  }, [map, setMap, mapRef])
+    return () => olMap.setTarget(undefined)
+  }, [])
 
   return <div ref={mapRef} style={{ height: '100vh', width: '67%' }}></div>
 }

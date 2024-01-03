@@ -1,9 +1,19 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Box, Button, Flex, Badge, Text } from '@chakra-ui/react'
-import { MapContext } from '../context/mapContext'
+import { MapContext } from '../../context/mapContext'
+import Layers from './layers'
 
 const Sidebar = () => {
   const { map } = useContext(MapContext)
+
+  const tester = () => {
+    const olMapLayers = map.getLayers().array_
+    const findOLLayer = olMapLayers.find(
+      (olLayer) =>
+        olLayer.get('id') === 'VIIRS_SNPP_CorrectedReflectance_TrueColor'
+    )
+    console.log(findOLLayer.getVisible())
+  }
 
   const getXYZ = () => {
     if (!map) return { zoom: null, xTile: null, yTile: null }
@@ -53,7 +63,7 @@ const Sidebar = () => {
   return (
     <Box id="sidebar" width="33%" p={4} bg="blackAlpha.800" height="100vh">
       <Flex justifyContent="center" mb="4">
-        <Button colorScheme="teal" variant="outline" onClick={getXYZ}>
+        <Button colorScheme="teal" variant="outline" onClick={tester}>
           Console
         </Button>
       </Flex>
@@ -71,6 +81,8 @@ const Sidebar = () => {
         </Badge>
         <Text color="whiteAlpha.900"> {zoom} </Text>
       </Flex>
+
+      <Layers />
     </Box>
   )
 }

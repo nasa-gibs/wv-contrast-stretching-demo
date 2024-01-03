@@ -145,7 +145,7 @@ export const referenceLabels = {
 }
 
 export const hls_landsat_firms = {
-  id: "hls_landsat_firms",
+  id: "hls_landsat_firms_swir",
   name: 'hls_landsat_firms',
   title: 'Corrected Reflectance (True Color)',
   r: 'B07',
