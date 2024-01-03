@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import { Box, Button, Flex, Badge, Text } from '@chakra-ui/react'
 import { MapContext } from '../../context/mapContext'
 import Layers from './layers'
+import HlsContrast from './hls-contrast'
 
 const Sidebar = () => {
   const { map } = useContext(MapContext)
@@ -61,7 +62,25 @@ const Sidebar = () => {
   }, [map])
 
   return (
-    <Box id="sidebar" width="33%" p={4} bg="blackAlpha.800" height="100vh">
+    <Box
+      id="sidebar"
+      width="33%"
+      p={4}
+      bg="blackAlpha.800"
+      height="100vh"
+      overflowY="auto"
+      overflowX="hidden"
+      sx={{
+        '&::-webkit-scrollbar': {
+          width: '4px',
+          borderRadius: '8px',
+          backgroundColor: `rgba(0, 0, 0, 0.05)`,
+        },
+        '&::-webkit-scrollbar-thumb': {
+          backgroundColor: `rgb(225,214,196)`,
+        },
+      }}
+    >
       <Flex justifyContent="center" mb="4">
         <Button colorScheme="teal" variant="outline" onClick={tester}>
           Console
@@ -83,6 +102,8 @@ const Sidebar = () => {
       </Flex>
 
       <Layers />
+
+      <HlsContrast />
     </Box>
   )
 }

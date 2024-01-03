@@ -13,12 +13,18 @@ const initialState = {
             visible: true,
             order: 1,
             id: "hls_landsat_firms_swir",
+            red: 50,
+            green: 50,
+            blue: 50,
         },
         {
             name: "HLS Landsat FIRMS NO SWIR",
             visible: true,
             order: 2,
             id: "hls_landsat_firms_no_swir",
+            red: 50,
+            green: 50,
+            blue: 50,
         },
         {
             name: "Coastlines / Borders / Roads",
@@ -46,8 +52,17 @@ export const mapSlice = createSlice({
                 layer.visible = !visible;
             }
         },
+        updateLayerRgb: (state, action) => {
+            const { id, red, green, blue } = action.payload;
+            const layer = state.layers.find(layer => layer.id === id);
+            if (layer) {
+                layer.red = red;
+                layer.green = green;
+                layer.blue = blue;
+            }
+        }
     },
 })
 
-export const { setLayerVisibility } = mapSlice.actions
+export const { setLayerVisibility, updateLayerRgb } = mapSlice.actions
 export default mapSlice.reducer
