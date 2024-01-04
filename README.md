@@ -7,7 +7,7 @@ This is a work in progress. This should demonstrate the ability to perform contr
 1. `git clone https://github.com/nasa-gibs/wv-contrast-stretching-demo.git`
 2. `npm install`
 3. `npm run dev`
-4. App will be available at `http://localhost:5173/contrast-stretch-demo/`
+4. App will be available at `http://localhost:5173/wv-contrast-stretch-demo/`
 
 ## Notes
 
