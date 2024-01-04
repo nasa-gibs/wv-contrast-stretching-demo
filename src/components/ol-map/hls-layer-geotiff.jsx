@@ -25,7 +25,6 @@ export const createHLSLayerGeoTIFF = async (layer) => {
 
   const urls = [preformedUrl]
 
-  // Define a style function
   const defaultStyleFunction = () => {
     return {
       color: [

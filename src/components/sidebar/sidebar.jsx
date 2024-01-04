@@ -80,21 +80,33 @@ const Sidebar = () => {
         },
       }}
     >
-      <Flex justifyContent="center" mb="4">
+      {/* <Flex justifyContent="center" mb="4">
         <Button colorScheme="teal" variant="outline" onClick={tester}>
           Console
         </Button>
-      </Flex>
+      </Flex> */}
 
-      <Flex justifyContent="space-between" mb="4">
-        <Badge borderRadius="full" px="2" colorScheme="teal">
+      <Flex gap={8} mb="4">
+        <Badge
+          borderRadius="full"
+          px="2"
+          colorScheme="teal"
+          width="20%"
+          textAlign="center"
+        >
           Coordinates
         </Badge>
         <Text color="whiteAlpha.900"> {coordinates} </Text>
       </Flex>
 
-      <Flex justifyContent="space-between" mb="4" width="75%">
-        <Badge borderRadius="full" px="2" colorScheme="teal">
+      <Flex gap={8} mb="4">
+        <Badge
+          borderRadius="full"
+          px="2"
+          colorScheme="teal"
+          width="20%"
+          textAlign="center"
+        >
           Zoom
         </Badge>
         <Text color="whiteAlpha.900"> {zoom} </Text>
